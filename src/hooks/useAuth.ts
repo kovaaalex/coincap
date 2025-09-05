@@ -1,22 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { LoginForm } from "../types/login.types";
 
 const useAuth = () => {
     const [user, setUser] = useState<LoginForm | null>(null);
-    useEffect(() => {
-        const user = localStorage.getItem('user');
-        if(user) 
-            setUser(JSON.parse(user));
-    }, []);
     const login = (data: LoginForm) => {
-        localStorage.setItem('user', JSON.stringify(data));
-        setUser(data);
+        if (data.login === 'admin' && data.password === 'admin') {
+            localStorage.setItem('user', JSON.stringify(data));
+            setUser(data);
+            return true;
+        }
+        return false;
     }
     const logout = () => {
         localStorage.removeItem('user');
         setUser(null);
     }
-    const isAuthenticated = user?.login === 'admin' && user.password === 'admin';
-    return { user, login, logout, isAuthenticated}
+    const isAuthenticated = () => {
+        const storedUser = localStorage.getItem('user');
+        if (!storedUser) return false;
+        const parsedUser = JSON.parse(storedUser);
+        return parsedUser.login === 'admin' && parsedUser.password === 'admin';
+    };
+    return { user, login, logout, isAuthenticated };
 }
 export default useAuth;

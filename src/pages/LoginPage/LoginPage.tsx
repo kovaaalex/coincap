@@ -1,13 +1,16 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { LoginForm } from "../../types/login.types";
 import styles from './LoginPage.module.css';
+import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: {errors} } = useForm<LoginForm>();
-    const [data, setData] = useState('');
+    const { login } = useAuth();
+    const navigate = useNavigate();
     const onSubmit = (data : LoginForm) => {
-        setData(JSON.stringify(data));
+        const success = login(data);
+        if(success) navigate('/coincap');
     }
     return(
         <div className={styles.login__page}>
