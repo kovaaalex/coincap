@@ -16,7 +16,41 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
-
+.rank {
+    width: 50px;
+}
+.symbol {
+    width: 60px;
+    text-align: start;
+}
+.name {
+    width: 130px;
+    text-align: start;
+}
+.priceUsd {
+    width: 90px;
+    text-align: end;
+}
+.marketCapUsd {
+    width: 100px;
+    text-align: end;
+}
+.vwap24Hr {
+    width: 100px;
+    text-align: end;
+}
+.supply {
+    width: 75px;
+    text-align: end;
+}
+.volumeUsd24Hr {
+    width: 75px;
+    text-align: end;
+}
+.changePercent24Hr {
+    width: 55px;
+    text-align: end;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
