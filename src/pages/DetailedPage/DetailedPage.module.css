@@ -16,3 +16,8 @@ h4, p{
     margin: 0;
     padding: 0;
 }
+@media (max-width: 550px) {
+    .container {
+        flex-direction: column;
+    }
+}

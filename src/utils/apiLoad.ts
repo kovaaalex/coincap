@@ -40,7 +40,7 @@ export const cryptoApi = {
             }),
     getCryptoHistory: (id: string, interval: string = 'd1'): Promise<CryptoHistoryResponse> =>
         apiLoad.get(`/assets/${id}/history?interval=${interval}`)
-            .then(response => response.data.data)
+            .then(response => response.data)
             .catch(error => {
                 console.error(`Ошибка загрузки истории ${id}:`, error);
                 throw new Error(`Ошибка загрузки истории`);

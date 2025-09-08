@@ -13,22 +13,19 @@ const PriceChart: React.FC<PriceChartProps> = ({ data, isLoading }) => {
     if (isLoading) {
         return <div className="chart-loading">Loading chart data...</div>;
     }
-
     const chartData = data.map(item => ({
         date: new Date(item.time).toLocaleDateString(),
         price: parseFloat(item.priceUsd),
         time: item.time,
         fullDate: new Date(item.time).toLocaleString()
     }));
-
     if (chartData.length === 0) {
         return <div className="chart-loading">No data available for chart</div>;
     }
-
     return (
         <div className="price-chart">
             <h3>Price History</h3>
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={360}>
                 <LineChart
                     data={chartData}
                     margin={{
