@@ -9,6 +9,7 @@
 .name {
     width: 130px;
     text-align: start;
+    color: black;
 }
 .priceUsd {
     width: 90px;
@@ -33,4 +34,7 @@
 .changePercent24Hr {
     width: 55px;
     text-align: end;
+}
+.name__link {
+    color: #213547
 }

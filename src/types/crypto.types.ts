@@ -23,3 +23,13 @@ export interface CryptoTableProps {
   crypto: ICrypto[];
   isLoading: boolean;
 }
+export interface ICryptoHistory {
+    priceUsd: string;
+    time: number;
+    date: string;
+    circulatingSupply?: string;
+}
+export interface CryptoHistoryResponse {
+    data: ICryptoHistory[];
+    timestamp: number;
+}

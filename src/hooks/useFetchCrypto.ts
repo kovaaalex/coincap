@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { cryptoApi } from "../utils/apiLoad";
-import type { CryptoResponse } from "../types/crypto.types";
+import type { CryptoResponse, ICrypto } from "../types/crypto.types";
 
 export const useCryptos = (limit: number, offset: number) => {
     return useQuery({
@@ -15,4 +15,19 @@ export const useAllCryptos = () => {
         queryFn: () => cryptoApi.getAllCryptosList(),
         select: (data: CryptoResponse) => data.data
     })
+};
+export const useCryptoDetail = (id: string) => {
+    return useQuery<ICrypto, Error>({
+        queryKey: ['cryptoDetail', id],
+        queryFn: () => cryptoApi.getCryptoById(id),
+        enabled: !!id,
+        refetchInterval: 10 * 1000,
+    });
+};
+export const useCryptoHistory = (id: string, interval: string = 'd1') => {
+    return useQuery({
+        queryKey: ['crypto-history', id, interval],
+        queryFn: () => cryptoApi.getCryptoHistory(id, interval),
+        enabled: !!id,
+    });
 };

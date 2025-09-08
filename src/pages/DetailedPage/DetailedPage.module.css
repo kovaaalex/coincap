@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.priceSection {
+    display: flex;
+    flex-direction: column;
+}
+.statCard {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+h4, p{
+    margin: 0;
+    padding: 0;
+}
+@media (max-width: 550px) {
+    .container {
+        flex-direction: column;
+    }
+}

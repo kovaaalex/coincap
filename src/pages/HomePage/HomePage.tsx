@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Header from "../../components/Header/Header";
 import { useCryptos } from "../../hooks/useFetchCrypto";
 import { ITEMS_ON_PAGE } from "../../const/cryptoUrl";
@@ -7,28 +7,33 @@ import type { ICrypto } from "../../types/crypto.types";
 import { useInView } from "react-intersection-observer";
 
 const HomePage = () => {
-    const [page, setPage] = useState(0);
-    const [cryptoList, setCryptoList] = useState<ICrypto[]>([])
-    const limit = ITEMS_ON_PAGE;
+    const [limit, setLimit] = useState(ITEMS_ON_PAGE);
+    const [cryptoList, setCryptoList] = useState<ICrypto[]>([]);
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
+    const previousDataRef = useRef<ICrypto[]>([]);
+    
     const {
         data: cryptosData,
         isLoading: cryptosLoading,
         error: cryptosError,
-    } = useCryptos(limit, (page - 1) * limit);
+        isFetching: cryptosFetching,
+    } = useCryptos(limit, 0);
+
     const { ref, inView } = useInView();
     useEffect(() => {
-        if(cryptosData) {
-            if (page === 0)
-                setCryptoList(cryptosData)
-            else 
-                setCryptoList((prev) => [...prev, ...cryptosData])
+        if (cryptosData) {
+            setCryptoList(cryptosData);
+            previousDataRef.current = cryptosData;
         }
-    }, [cryptosData]);
-    useEffect(() => {
-        if(inView) {
-            setPage(prev => prev + 1);
+        if (inView && !cryptosFetching && !isLoadingMore) {
+            setIsLoadingMore(true);
+            setLimit(prev => prev + ITEMS_ON_PAGE);
         }
-    }, [inView]);
+        if (!cryptosFetching) {
+            setIsLoadingMore(false);
+        }
+    }, [cryptosData, inView, cryptosFetching, isLoadingMore]);
+
     if (cryptosError) {
         return (
             <>
@@ -37,18 +42,23 @@ const HomePage = () => {
             </>
         );
     }
-    return(
+    return (
         <>
             <Header/>
             <h1>Home</h1>
             <CryptoTable
                 crypto={cryptoList}
-                isLoading={cryptosLoading && page === 0}
+                isLoading={cryptosLoading && cryptoList.length === 0}
             />
             <div ref={ref}>
-                <p>Load more</p>
+                {isLoadingMore ? (
+                    <p>Loading more...</p>
+                ) : (
+                    <p>Scroll to load more</p>
+                )}
             </div>
         </>
-    )
-}
+    );
+};
+
 export default HomePage;

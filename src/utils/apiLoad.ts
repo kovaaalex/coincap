@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { INTERVAL, URL, ITEMS_ON_PAGE } from '../const/cryptoUrl';
-import type { CryptoResponse, ICrypto } from '../types/crypto.types';
+import type { CryptoHistoryResponse, CryptoResponse, ICrypto } from '../types/crypto.types';
 const API_KEY = import.meta.env.VITE_COINCAP_API_KEY;
 export const apiLoad = axios.create({
     baseURL: URL,
@@ -26,7 +26,7 @@ export const cryptoApi = {
             }),
     getCryptoById: (id: string): Promise<ICrypto> =>
         apiLoad.get(`/assets/${id}`)
-            .then(response => response.data)
+            .then(response => response.data.data)
             .catch(error => {
                 console.error(`Ошибка загрузки криптовалюты ${id}:`, error);
                 throw new Error(`Ошибка загрузки криптовалюты ${id}:`);
@@ -37,5 +37,12 @@ export const cryptoApi = {
             .catch(error => {
                 console.error(`Ошибка загрузки криптовалюты ${searchTerm}:`, error);
                 throw new Error(`Ошибка загрузки криптовалюты ${searchTerm}:`);
+            }),
+    getCryptoHistory: (id: string, interval: string = 'd1'): Promise<CryptoHistoryResponse> =>
+        apiLoad.get(`/assets/${id}/history?interval=${interval}`)
+            .then(response => response.data)
+            .catch(error => {
+                console.error(`Ошибка загрузки истории ${id}:`, error);
+                throw new Error(`Ошибка загрузки истории`);
             }),
 }
