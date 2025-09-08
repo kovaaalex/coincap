@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import useCryptos from "../../hooks/useFetchCrypto";
+import { useCryptos } from "../../hooks/useFetchCrypto";
 import { ITEMS_ON_PAGE } from "../../const/cryptoUrl";
 import CryptoTable from "../../components/CryptoTable/CryptoTable";
 import type { ICrypto } from "../../types/crypto.types";
@@ -16,7 +16,6 @@ const HomePage = () => {
         error: cryptosError,
     } = useCryptos(limit, (page - 1) * limit);
     const { ref, inView } = useInView();
-
     useEffect(() => {
         if(cryptosData) {
             if (page === 0)
@@ -30,6 +29,14 @@ const HomePage = () => {
             setPage(prev => prev + 1);
         }
     }, [inView]);
+    if (cryptosError) {
+        return (
+            <>
+                <Header/>
+                <p>Error: {cryptosError.message}</p>
+            </>
+        );
+    }
     return(
         <>
             <Header/>

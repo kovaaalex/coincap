@@ -10,6 +10,13 @@ export const apiLoad = axios.create({
     }
 });
 export const cryptoApi = {
+    getAllCryptosList: (): Promise<CryptoResponse> => 
+        apiLoad.get('/assets?limit=1000')
+            .then(response => response.data)
+            .catch(error => {
+                console.error('Ошибка загрузки всех криптовалют:', error);
+                throw new Error('Ошибка загрузки всех криптовалют');
+            }),
     getCryptosList: (limit: number = ITEMS_ON_PAGE, offset: number = 50): Promise<CryptoResponse> => 
         apiLoad.get(`/assets?limit=${limit}&offset=${offset}`)
             .then(response => response.data)

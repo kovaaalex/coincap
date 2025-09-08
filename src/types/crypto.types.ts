@@ -19,3 +19,7 @@ export interface CryptoResponse {
     timestamp: number;
     data: ICrypto[];
 }
+export interface CryptoTableProps {
+  crypto: ICrypto[];
+  isLoading: boolean;
+}
