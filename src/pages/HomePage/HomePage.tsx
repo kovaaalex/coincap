@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header/Header";
 import useCryptos from "../../hooks/useFetchCrypto";
 import { ITEMS_ON_PAGE } from "../../const/cryptoUrl";
 import CryptoTable from "../../components/CryptoTable/CryptoTable";
 import type { ICrypto } from "../../types/crypto.types";
+import { useInView } from "react-intersection-observer";
 
 const HomePage = () => {
     const [page, setPage] = useState(0);
@@ -13,7 +14,9 @@ const HomePage = () => {
         data: cryptosData,
         isLoading: cryptosLoading,
         error: cryptosError,
-    } = useCryptos(limit, page * limit);
+    } = useCryptos(limit, (page - 1) * limit);
+    const { ref, inView } = useInView();
+
     useEffect(() => {
         if(cryptosData) {
             if (page === 0)
@@ -21,7 +24,12 @@ const HomePage = () => {
             else 
                 setCryptoList((prev) => [...prev, ...cryptosData])
         }
-    }, [cryptosData])
+    }, [cryptosData]);
+    useEffect(() => {
+        if(inView) {
+            setPage(prev => prev + 1);
+        }
+    }, [inView]);
     return(
         <>
             <Header/>
@@ -30,6 +38,9 @@ const HomePage = () => {
                 crypto={cryptoList}
                 isLoading={cryptosLoading && page === 0}
             />
+            <div ref={ref}>
+                <p>Load more</p>
+            </div>
         </>
     )
 }
