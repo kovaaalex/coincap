@@ -1,8 +1,11 @@
 import { Navigate } from "react-router";
-import useAuth from "../../hooks/useAuth";
+import type { ProtectedRouteProps } from "../../types/protectedRoute.types";
 
-const ProtectedRoute: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const { isAuthenticated } = useAuth();
-    return isAuthenticated() ? <>{children}</> : <Navigate to="/coincap/login" replace />
-}
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ isAuthenticated, children }) => {
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+};
+
 export default ProtectedRoute;
