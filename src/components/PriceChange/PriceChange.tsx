@@ -7,11 +7,7 @@ import {
     Tooltip,
     ResponsiveContainer
 } from 'recharts';
-
-interface PriceChartProps {
-    data: any[];
-    isLoading: boolean;
-}
+import type { PriceChartProps } from '../../types/priceHistory.types';
 
 const PriceChart: React.FC<PriceChartProps> = ({ data, isLoading }) => {
     if (isLoading) {
