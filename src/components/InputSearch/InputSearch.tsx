@@ -16,7 +16,6 @@ const SearchInput: React.FC<SearchInputProps> = ({
     };
     return (
         <div className={styles.searchContainer}>
-            <div className={styles.searchInputWrapper}>
                 <input
                     type="text"
                     value={inputValue}
@@ -34,7 +33,6 @@ const SearchInput: React.FC<SearchInputProps> = ({
                 >
                     Search
                 </button>
-            </div>
         </div>
     );
 };
