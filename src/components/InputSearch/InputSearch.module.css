@@ -1,0 +1,21 @@
+.searchContainer{
+    margin: 10px auto;
+}
+.searchInput {
+    padding: 8px 10px;
+    border-radius: 10px;
+    outline: none;
+    width: 200px;
+}
+.searchButton{
+    font-size: 14px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background-color: #353637;
+    color: #fff;
+}
+.searchButton:hover{
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+    color: #242424;
+}

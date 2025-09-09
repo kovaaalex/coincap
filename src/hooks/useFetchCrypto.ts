@@ -31,3 +31,10 @@ export const useCryptoHistory = (id: string, interval: string = 'd1') => {
         enabled: !!id,
     });
 };
+export const useSearchCryptos = (term: string) => {
+    return useQuery({
+        queryKey: ['cryptoTerm', term],
+        queryFn: () => cryptoApi.getCryptoByName(term),
+        enabled: term.length > 0,
+    })
+}
