@@ -1,40 +1,7 @@
-.rank {
-    width: 25px;
-    text-align: start;
+.table__row {
+    line-height: 2;
 }
-.symbol {
-    width: 60px;
-    text-align: start;
-}
-.name {
-    width: 130px;
-    text-align: start;
-    color: black;
-}
-.priceUsd {
-    width: 90px;
-    text-align: end;
-}
-.marketCapUsd {
-    width: 70px;
-    text-align: end;
-}
-.vwap24Hr {
-    width: 90px;
-    text-align: end;
-}
-.supply {
-    width: 75px;
-    text-align: end;
-}
-.volumeUsd24Hr {
-    width: 75px;
-    text-align: end;
-}
-.changePercent24Hr {
-    width: 55px;
-    text-align: end;
-}
-.name__link {
-    color: #213547
+.table__row td {
+    border-bottom: 1px solid black;
+    border-spacing: 0;
 }
