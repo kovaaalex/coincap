@@ -6,7 +6,7 @@ const CryptoTableItem = ({item}: {item: ICrypto}) => {
     return (
         <tr className={styles.table__row}>
             <td className="rank">{item.rank}</td>
-            <td className="symbol">{item.symbol}</td>
+            <td className="symbol" title={item.name}>{item.symbol}</td>
             <td className="name">
                 <Link to={`/coincap/crypto/${item.id}`} className={styles.name__link}>
                     {item.name} 

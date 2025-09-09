@@ -84,3 +84,35 @@
 .read-the-docs {
   color: #888;
 }
+@media (max-width: 900px) {
+  .supply {
+    display: none;
+  }
+  .volumeUsd24Hr {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .marketCapUsd {
+    display: none;
+  }
+  td{
+    font-size: 12px;
+  }
+  .name{
+    width: 100px;
+  }
+  .priceUsd{
+    width: 70px;
+  }
+}
+@media (max-width: 550px) {
+  .name{
+    display: none;
+  }
+}
+@media (max-width: 450px) {
+  .vwap24Hr{
+    display: none;
+  }
+}
