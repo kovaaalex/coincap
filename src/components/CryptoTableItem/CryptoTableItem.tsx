@@ -4,7 +4,7 @@ import { formatNumber } from "../../utils/formatNumber";
 import styles from './CryptoTableItem.module.css';
 const CryptoTableItem = ({item}: {item: ICrypto}) => {
     return (
-        <tr>
+        <tr className={styles.table__row}>
             <td className="rank">{item.rank}</td>
             <td className="symbol">{item.symbol}</td>
             <td className="name">

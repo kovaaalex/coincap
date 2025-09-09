@@ -1,0 +1,7 @@
+h1 {
+    letter-spacing: 0.3px;
+    color: #213213
+}
+.noResults, .error {
+    color: red;
+}

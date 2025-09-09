@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import type { CryptoTableProps } from "../../types/crypto.types";
 import CryptoTableItem from "../CryptoTableItem/CryptoTableItem";
 import type { SortDirection, SortField } from "../../types/sort.types";
-
+import styles from './CryptoTable.module.css';
 const CryptoTable: React.FC<CryptoTableProps> = ({crypto, isLoading}) => {
     const [sortField, setSortField] = useState<SortField>('rank');
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
@@ -34,7 +34,7 @@ const CryptoTable: React.FC<CryptoTableProps> = ({crypto, isLoading}) => {
     if (isLoading) {
         return <div className="loading">Загрузка криптовалют</div>;
     }
-    return <table>
+    return <table className={styles.table} cellSpacing="0">
         <thead className="table__header">
             <tr className="header__row">
                 <th className="rank" onClick={() => handleSort('rank')}>Rank</th>

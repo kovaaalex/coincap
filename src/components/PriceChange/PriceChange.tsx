@@ -8,7 +8,7 @@ import {
     ResponsiveContainer
 } from 'recharts';
 import type { PriceChartProps } from '../../types/priceHistory.types';
-
+import styles from './PriceChange.module.css';
 const PriceChart: React.FC<PriceChartProps> = ({ data, isLoading }) => {
     if (isLoading) {
         return <div className="chart-loading">Loading chart data...</div>;
@@ -25,7 +25,7 @@ const PriceChart: React.FC<PriceChartProps> = ({ data, isLoading }) => {
     return (
         <div className="price-chart">
             <h3>Price History</h3>
-            <ResponsiveContainer width="100%" height={360}>
+            <ResponsiveContainer width="100%" className={styles.responsive__container} height={360}>
                 <LineChart
                     data={chartData}
                     margin={{
