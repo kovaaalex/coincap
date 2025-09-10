@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import InputField from "../../components/InputField/InputField";
+import { HOMEPAGE__URL } from "../../const/routes";
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: {errors} } = useForm<LoginForm>();
@@ -15,7 +16,7 @@ const LoginPage = () => {
         try {
             const success = login(data);
             if (success) {
-                navigate('/coincap');
+                navigate(HOMEPAGE__URL);
             } else {
                 setAuthError('Invalid login or password');
             }

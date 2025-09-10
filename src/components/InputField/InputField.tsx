@@ -1,12 +1,5 @@
+import type { InputFieldProps } from '../../types/inputField.types';
 import styles from './InputField.module.css';
-interface InputFieldProps {
-  type: string;
-  placeholder: string;
-  error?: any;
-  register: any;
-  name: string;
-  validation: any;
-}
 
 const InputField = ({ 
   type, 

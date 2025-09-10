@@ -4,23 +4,24 @@ import HomePage from '../pages/HomePage/HomePage';
 import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 import DetailedPage from '../pages/DetailedPage/DetailedPage';
 import useAuth from '../hooks/useAuth';
+import { DETAILEDPAGE__URL, HOMEPAGE__URL, LOGINPAGE__URL } from '../const/routes';
 
 export const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
   
   return (
         <Routes>
-            <Route path='/coincap' element={
+            <Route path={HOMEPAGE__URL} element={
                 <ProtectedRoute isAuthenticated={isAuthenticated()}> 
-                <HomePage/>
+                    <HomePage/>
                 </ProtectedRoute>
             }/>
-            <Route path="/coincap/crypto/:id" element={
+            <Route path={DETAILEDPAGE__URL} element={
                 <ProtectedRoute isAuthenticated={isAuthenticated()}>
-                <DetailedPage />
+                    <DetailedPage />
                 </ProtectedRoute>
             }/>
-            <Route path='/coincap/login' element={<LoginPage/>}/>
+            <Route path={LOGINPAGE__URL} element={<LoginPage/>}/>
         </Routes>
   );
 };

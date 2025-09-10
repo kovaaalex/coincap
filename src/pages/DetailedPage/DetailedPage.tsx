@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import PriceChart from "../../components/PriceChange/PriceChange";
 import { formatNumber } from "../../utils/formatNumber";
 import styles from './DetailedPage.module.css';
+import { HOMEPAGE__URL } from "../../const/routes";
 
 const DetailedPage = () => {
     const { id } = useParams<{ id: string }>();
@@ -21,7 +22,7 @@ const DetailedPage = () => {
     
     useEffect(() => {
         if (detailError) {
-            navigate('/');
+            navigate(HOMEPAGE__URL);
         }
     }, [detailError, navigate]);
     if (detailLoading) {

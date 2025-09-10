@@ -10,17 +10,19 @@ import {
 import type { PriceChartProps } from '../../types/priceHistory.types';
 import styles from './PriceChange.module.css';
 const PriceChart: React.FC<PriceChartProps> = ({ data, isLoading }) => {
-    if (isLoading) {
-        return <div className="chart-loading">Loading chart data...</div>;
-    }
     const chartData = data.map(item => ({
         date: new Date(item.time).toLocaleDateString(),
         price: parseFloat(item.priceUsd),
         time: item.time,
         fullDate: new Date(item.time).toLocaleString()
     }));
+    
     if (chartData.length === 0) {
         return <div className="chart-loading">No data available for chart</div>;
+    }
+    
+    if (isLoading) {
+        return <div className="chart-loading">Loading chart data...</div>;
     }
     return (
         <div className="price-chart">
