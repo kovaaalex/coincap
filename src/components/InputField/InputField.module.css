@@ -1,0 +1,19 @@
+.input__container{
+    display: flex;
+    flex-direction: column;
+}
+.input__container span{
+    font-size: 10px;
+    text-align: left;
+}
+.input__container input {
+    padding: 8px 10px;
+    border-radius: 10px;
+    outline: none;
+}
+.login__form .input{
+    border: 1px solid #838485;
+}
+.login__form .error__input {
+    border: 1px solid red;
+}

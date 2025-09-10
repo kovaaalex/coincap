@@ -16,10 +16,16 @@ const useAuth = () => {
         setUser(null);
     }
     const isAuthenticated = () => {
-        const storedUser = localStorage.getItem('user');
-        if (!storedUser) return false;
-        const parsedUser = JSON.parse(storedUser);
-        return parsedUser.login === 'admin' && parsedUser.password === 'admin';
+        try {
+            const storedUser = localStorage.getItem('user');
+            if (!storedUser) return false;
+            const parsedUser = JSON.parse(storedUser);
+            return parsedUser.login === 'admin' && parsedUser.password === 'admin';
+        } catch (error) {
+            console.error('Ошибка получения данных:', error);
+            return false;
+        }
+        
     };
     return { user, login, logout, isAuthenticated };
 }

@@ -3,20 +3,37 @@ import type { LoginForm } from "../../types/login.types";
 import styles from './LoginPage.module.css';
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
+import { useState } from "react";
+import InputField from "../../components/InputField/InputField";
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: {errors} } = useForm<LoginForm>();
     const { login } = useAuth();
     const navigate = useNavigate();
+    const [authError, setAuthError] = useState<string>('');
     const onSubmit = (data : LoginForm) => {
-        const success = login(data);
-        if(success) navigate('/coincap');
+        try {
+            const success = login(data);
+            if (success) {
+                navigate('/coincap');
+            } else {
+                setAuthError('Invalid login or password');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            setAuthError('An error occurred during login');
+        }
     }
     return(
         <div className={styles.login__page}>
             <form className={styles.login__form} onSubmit={handleSubmit(onSubmit)}>
-                <div className={styles.input__container}>
-                    <input {...register("login", {
+                <InputField
+                    type="text"
+                    placeholder="Login"
+                    error={errors.login}
+                    register={register}
+                    name="login"
+                    validation={{
                         required: "Login is required",
                         minLength: {
                             value: 4,
@@ -26,15 +43,15 @@ const LoginPage = () => {
                             value: 10,
                             message: 'Must be at max 10 characters'
                         },
-                    })}
-                        type="text" 
-                        placeholder="Login"
-                        className={errors.login ? styles.error__input : styles.input}
-                    />
-                    {errors.login && <span className={styles.error}>{errors.login.message}</span>}
-                </div>
-                <div className={styles.input__container}>
-                    <input {...register("password", {
+                    }}
+                />
+                <InputField
+                    type="password"
+                    placeholder="Password"
+                    error={errors.password}
+                    register={register}
+                    name="password"
+                    validation={{
                         required: "Password is required",
                         minLength: {
                             value: 4,
@@ -44,14 +61,12 @@ const LoginPage = () => {
                             value: 10,
                             message: 'Must be at max 10 characters'
                         },
-                    })} 
-                        type="password" 
-                        placeholder="Password"
-                        className={errors.password ? styles.error__input : styles.input}
-                    />
-                    {errors.password && <span className={styles.error}>{errors.password.message}</span>}
-                </div>
-                <input type="submit" />
+                    }}
+                />
+                {authError && <div className={styles.auth__error}>{authError}</div>}
+                <button type="submit" className={styles.submit__button}>
+                    Login
+                </button>
             </form>
         </div>
     )
